@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Baptist Church - Agusan Pequeño</title>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #3b82f6;
+            --accent: #f59e0b;
+            --accent-hover: #d97706;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #3b82f6;
+            --primary-light: #60a5fa;
+            --accent: #f59e0b;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i { color: var(--accent); }
+
+        .nav-items {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-items a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .nav-items a:hover { color: var(--accent); }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg) scale(1.1);
+            color: var(--accent);
+        }
+
+        /* Hero Header */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 58, 138, 0.8)),
+                        url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&q=80') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            color: #fff;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 1s ease-out;
+            max-width: 900px;
+            line-height: 1.2;
+        }
+
+        .pastor-badges {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 1s ease-out 0.1s backwards;
+        }
+
+        .pastor-badge {
+            background: rgba(245, 158, 11, 0.2);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .pastor-badge:hover {
+            background: rgba(245, 158, 11, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #e2e8f0;
+            max-width: 650px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--accent), #f59e0b);
+            color: #0f172a;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 1.5rem;
+        }
+
+        /* Interactive Verse Generator Box */
+        .verse-card {
+            background: linear-gradient(135deg, var(--primary), #1e293b);
+            color: #fff;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin-top: -100px;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .verse-card blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .verse-card cite {
+            display: block;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Pastoral Leadership Section */
+        .pastors-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .pastor-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            border-left: 6px solid var(--accent);
+        }
+
+        .pastor-icon {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary-light);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .pastor-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--text);
+            margin-bottom: 0.2rem;
+        }
+
+        .pastor-info .role {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pastor-fb-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1rem;
+            color: #1877f2;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .pastor-fb-link:hover {
+            color: #0b51b3;
+            text-decoration: underline;
+        }
+
+        /* Interactive Stats Bar */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card i {
+            font-size: 2.5rem;
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+        }
+
+        .stat-card h3 {
+            font-size: 2.2rem;
+            color: var(--text);
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Schedule Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--text);
+        }
+
+        .section-title p { color: var(--text-muted); }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            border: 1px solid var(--primary-light);
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--primary-light);
+            color: #fff;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 5px solid var(--primary-light);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card .time-badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary-light);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Interactive Prayer Wall */
+        .prayer-section {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin: 4rem 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.9rem;
+            border-radius: 10px;
+            border: 1px solid var(--text-muted);
+            background: var(--bg);
+            color: var(--text);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .prayer-feed {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .prayer-item {
+            background: var(--bg);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .like-btn {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+        }
+
+        /* Map & Social Section */
+        .social-banner {
+            background: linear-gradient(135deg, #1877f2, #0b51b3);
+            color: #fff;
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .social-banner h2 { font-size: 2rem; margin-bottom: 1rem; }
+
+        .social-banner-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 3rem 2rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        footer p { margin-top: 0.5rem; font-size: 0.9rem; }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .nav-items { display: none; }
+            .verse-card blockquote { font-size: 1.1rem; }
+            .pastor-card { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav>
+        <div class="logo">
+            <i class="fa-solid fa-church"></i> Bible Baptist Church
+        </div>
+        <ul class="nav-links nav-items">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#leadership">Leadership</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#prayers">Prayer Wall</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Theme">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+    </nav>
+
+    <!-- Hero Display -->
+    <section class="hero" id="home">
+        <h1>Bible Baptist Church Agusan Pequeño</h1>
+        <div class="pastor-badges">
+            <a href="https://www.facebook.com/search/top?q=Jerson%20Calo" target="_blank" class="pastor-badge" title="Visit Pastor Jerson Calo on Facebook">
+                <i class="fa-brands fa-facebook"></i> Pastor Jerson Calo
+            </a>
+            <a href="https://www.facebook.com/search/top?q=Jent%20Calo" target="_blank" class="pastor-badge" title="Visit Assistant Pastor Jent Calo on Facebook">
+                <i class="fa-brands fa-facebook"></i> Assistant Pastor Jent Calo
+            </a>
+        </div>
+        <p>Holding forth the Word of Life, glorifying Jesus Christ, and serving our community in Butuan City.</p>
+        <div class="cta-group">
+            <a href="https://www.facebook.com/search/top?q=bible%20baptist%20church%20agusan%20pequeno" target="_blank" class="btn-primary">
+                <i class="fa-brands fa-facebook"></i> Church Facebook Page
+            </a>
+            <a href="#services" class="btn-secondary">
+                <i class="fa-regular fa-clock"></i> Service Times
+            </a>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <div class="container">
+
+        <!-- Dynamic Verse Generator Box -->
+        <div class="verse-card">
+            <blockquote id="verseText">"For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."</blockquote>
+            <cite id="verseRef">— John 3:16 (KJV)</cite>
+            <button class="btn-primary" onclick="generateNewVerse()">
+                <i class="fa-solid fa-rotate"></i> Refresh Daily Verse
+            </button>
+        </div>
+
+        <!-- Pastoral Leadership Section -->
+        <div class="section-title" id="leadership" style="margin-top: 4rem; margin-bottom: 1.5rem;">
+            <h2>Church Pastoral Leadership</h2>
+            <p>Guiding our congregation in faithful biblical preaching and spiritual growth.</p>
+        </div>
+
+        <div class="pastors-container">
+            <div class="pastor-card">
+                <div class="pastor-icon">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <div class="pastor-info">
+                    <h3>Pastor Jerson Calo</h3>
+                    <div class="role">Senior Pastor</div>
+                    <p style="color: var(--text-muted);">Leading Bible Baptist Church Agusan Pequeño in faithful biblical preaching, spiritual direction, and community ministry.</p>
+                    <a href="https://www.facebook.com/search/top?q=Jerson%20Calo" target="_blank" class="pastor-fb-link">
+                        <i class="fa-brands fa-facebook"></i> Connect on Facebook <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem;"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="pastor-card">
+                <div class="pastor-icon">
+                    <i class="fa-solid fa-user-gear"></i>
+                </div>
+                <div class="pastor-info">
+                    <h3>Assistant Pastor Jent Calo</h3>
+                    <div class="role">Assistant Pastor</div>
+                    <p style="color: var(--text-muted);">Assisting in pastoral care, youth guidance, and worship operations across the Agusan Pequeño ministry.</p>
+                    <a href="https://www.facebook.com/search/top?q=Jent%20Calo" target="_blank" class="pastor-fb-link">
+                        <i class="fa-brands fa-facebook"></i> Connect on Facebook <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Community Counters -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fa-solid fa-book-bible"></i>
+                <h3 id="stat1">100%</h3>
+                <p>KJV Bible Preaching</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-users"></i>
+                <h3 id="stat2">3+</h3>
+                <p>Weekly Gatherings</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-hands-holding-child"></i>
+                <h3 id="prayerCount">12</h3>
+                <p>Active Prayer Requests</p>
+            </div>
+        </div>
+
+        <!-- Filterable Services Section -->
+        <div id="services">
+            <div class="section-title">
+                <h2>Worship Service Schedule</h2>
+                <p>Join us in person or follow our announcements on Facebook.</p>
+            </div>
+
+            <div class="filter-tabs">
+                <button class="tab-btn active" onclick="filterServices('all')">All Meetings</button>
+                <button class="tab-btn" onclick="filterServices('sunday')">Sunday Services</button>
+                <button class="tab-btn" onclick="filterServices('midweek')">Midweek Gatherings</button>
+            </div>
+
+            <div class="services-grid" id="servicesGrid">
+                <!-- Cards render dynamically via JavaScript -->
+            </div>
+        </div>
+
+        <!-- Interactive Prayer Wall -->
+        <div class="prayer-section" id="prayers">
+            <div class="section-title" style="margin-bottom: 1.5rem;">
+                <h2>Interactive Prayer Request Wall</h2>
+                <p>Submit your prayer requests so our pastors and church community can pray with you.</p>
+            </div>
+
+            <form id="prayerForm">
+                <div class="form-group">
+                    <label for="userName">Your Name or Anonymous</label>
+                    <input type="text" id="userName" class="form-control" placeholder="e.g., Brother John" required>
+                </div>
+                <div class="form-group">
+                    <label for="prayerText">Prayer Request</label>
+                    <textarea id="prayerText" class="form-control" rows="3" placeholder="How can we pray for you today?" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+                    <i class="fa-solid fa-paper-plane"></i> Submit Request
+                </button>
+            </form>
+
+            <div class="prayer-feed" id="prayerFeed">
+                <!-- Prayer items dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Direct Facebook Connection Banner -->
+        <div class="social-banner" id="contact">
+            <i class="fa-brands fa-facebook" style="font-size: 3.5rem; margin-bottom: 1rem;"></i>
+            <h2>Connect With Our Facebook Ministry</h2>
+            <p style="margin-bottom: 1rem;">Stay updated with live-streamed messages, youth activities, and community outreach events.</p>
+            
+            <div class="social-banner-links">
+                <a href="https://www.facebook.com/search/top?q=bible%20baptist%20church%20agusan%20pequeno" target="_blank" class="btn-primary" style="background: #fff; color: #1877f2;">
+                    Church Page <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="https://www.facebook.com/search/top?q=Jerson%20Calo" target="_blank" class="btn-primary" style="background: rgba(255,255,255,0.2); color: #fff; border: 1px solid #fff;">
+                    Pastor Jerson Calo <i class="fa-solid fa-user"></i>
+                </a>
+                <a href="https://www.facebook.com/search/top?q=Jent%20Calo" target="_blank" class="btn-primary" style="background: rgba(255,255,255,0.2); color: #fff; border: 1px solid #fff;">
+                    Assistant Pastor Jent Calo <i class="fa-solid fa-user"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Bible Baptist Church Agusan Pequeño</strong></p>
+        <div class="footer-links">
+            <a href="https://www.facebook.com/search/top?q=Jerson%20Calo" target="_blank"><i class="fa-brands fa-facebook"></i> Pastor Jerson Calo</a>
+            <a href="https://www.facebook.com/search/top?q=Jent%20Calo" target="_blank"><i class="fa-brands fa-facebook"></i> Assistant Pastor Jent Calo</a>
+        </div>
+        <p style="margin-top: 1rem;"><i class="fa-solid fa-location-dot"></i> Agusan Pequeño, Butuan City, Agusan Del Norte, Philippines</p>
+        <p>&copy; <span id="year"></span> All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript Engine -->
+    <script>
+        // 1. Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.body.removeAttribute('data-theme');
+                themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            }
+        });
+
+        // 2. Dynamic Scripture Rotation
+        const verses = [
+            { text: "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.", ref: "— John 3:16 (KJV)" },
+            { text: "Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.", ref: "— Proverbs 3:5-6 (KJV)" },
+            { text: "Thy word is a lamp unto my feet, and a light unto my path.", ref: "— Psalm 119:105 (KJV)" },
+            { text: "I can do all things through Christ which strengtheneth me.", ref: "— Philippians 4:13 (KJV)" },
+            { text: "And we know that all things work together for good to them that love God, to them who are the called according to his purpose.", ref: "— Romans 8:28 (KJV)" }
+        ];
+
+        function generateNewVerse() {
+            const verseText = document.getElementById('verseText');
+            const verseRef = document.getElementById('verseRef');
+            const randomIndex = Math.floor(Math.random() * verses.length);
+            
+            verseText.style.opacity = 0;
+            verseRef.style.opacity = 0;
+            
+            setTimeout(() => {
+                verseText.textContent = `"${verses[randomIndex].text}"`;
+                verseRef.textContent = verses[randomIndex].ref;
+                verseText.style.opacity = 1;
+                verseRef.style.opacity = 1;
+            }, 200);
+        }
+
+        // 3. Filterable Service Schedules
+        const serviceData = [
+            { type: 'sunday', title: 'Sunday School', time: '9:00 AM - 10:00 AM', desc: 'In-depth Bible classes for adults, teens, and children.' },
+            { type: 'sunday', title: 'Sunday Morning Worship Service', time: '10:00 AM - 11:30 AM', desc: 'Preaching of God’s Word, hymn singing, and fellowship.' },
+            { type: 'sunday', title: 'Sunday Afternoon Service', time: '3:00 PM - 5:00 PM', desc: 'Afternoon worship service, Bible teaching, and fellowship.' },
+            { type: 'midweek', title: 'Wednesday Prayer Meeting', time: '7:00 PM - 9:00 PM', desc: 'Midweek Bible study and corporate prayer gathering.' }
+        ];
+
+        function renderServices(filter) {
+            const grid = document.getElementById('servicesGrid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' ? serviceData : serviceData.filter(s => s.type === filter);
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'service-card';
+                card.innerHTML = `
+                    <span class="time-badge"><i class="fa-regular fa-clock"></i> ${item.time}</span>
+                    <h3 style="margin-bottom: 0.5rem;">${item.title}</h3>
+                    <p style="color: var(--text-muted);">${item.desc}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterServices(category) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderServices(category);
+        }
+
+        // Initialize Services on Load
+        renderServices('all');
+
+        // 4. Interactive Prayer Request Engine
+        let prayerCount = 12;
+        const prayerFeed = document.getElementById('prayerFeed');
+        const prayerForm = document.getElementById('prayerForm');
+
+        const initialPrayers = [
+            { name: "Sister Maria", text: "Prayers for good health and safety for our family this week.", likes: 4 },
+            { name: "Anonymous", text: "Praying for guidance and wisdom for Pastor Jerson Calo, Assistant Pastor Jent Calo, and our church leaders.", likes: 8 }
+        ];
+
+        function renderPrayer(name, text, likes) {
+            const item = document.createElement('div');
+            item.className = 'prayer-item';
+            item.innerHTML = `
+                <div>
+                    <strong>${name}</strong>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">${text}</p>
+                </div>
+                <button class="like-btn" onclick="likePrayer(this)">
+                    <i class="fa-solid fa-heart"></i> <span>${likes}</span>
+                </button>
+            `;
+            prayerFeed.prepend(item);
+        }
+
+        initialPrayers.forEach(p => renderPrayer(p.name, p.text, p.likes));
+
+        prayerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('userName').value;
+            const text = document.getElementById('prayerText').value;
+
+            renderPrayer(name, text, 1);
+            prayerCount++;
+            document.getElementById('prayerCount').textContent = prayerCount;
+
+            prayerForm.reset();
+        });
+
+        function likePrayer(btn) {
+            const span = btn.querySelector('span');
+            let count = parseInt(span.textContent);
+            span.textContent = count + 1;
+            btn.style.color = "#e11d48";
+        }
+
+        // Set Current Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
